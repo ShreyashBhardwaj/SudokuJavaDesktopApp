@@ -4,6 +4,10 @@ import com.example.sudokudesktopapp.constants.GameState;
 import com.example.sudokudesktopapp.constants.Rows;
 import com.example.sudokudesktopapp.problemdomain.SudokuGame;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static com.example.sudokudesktopapp.problemdomain.SudokuGame.GRID_BOUNDRY;
 
 public class GameLogic {
@@ -22,18 +26,108 @@ public class GameLogic {
         return GameState.COMPLETE;
     }
 
-    private static boolean sudokuIsInvalid(int[][] grid) {
+    protected static boolean sudokuIsInvalid(int[][] grid) {
         if(rowsAreInvalid(grid)) return true;
         if(columnsAreInvalid(grid)) return true;
         if(squaresAreInvalid(grid)) return true;
         else return false;
      }
+    private static boolean rowsAreInvalid(int[][] grid) {
+        for (int yIndex = 0; yIndex < GRID_BOUNDRY; yIndex++)
+        {
+            List<Integer> row = new ArrayList<>();
+            for (int xIndex = 0; xIndex < GRID_BOUNDRY; xIndex++)
+            {
+                row.add(grid[xIndex][yIndex]);
+            }
 
-    private static boolean squaresAreInvalid(int[][] grid) {
-        if(rowOfSquaresIsInvalid(Rows.TOP,grid))
+            if (collectionHasRepeats(row)) return true;
+        }
+
+        return false;
     }
 
-    private static boolean tilesAreNotFilled(int[][] grid) {
+
+    private static boolean columnsAreInvalid(int[][] grid) {
+        for (int xIndex = 0; xIndex < GRID_BOUNDRY; xIndex++)
+        {
+            List<Integer> row = new ArrayList<>();
+            for (int yIndex = 0;yIndex<GRID_BOUNDRY; yIndex++)
+            {
+                row.add(grid[xIndex][yIndex]);
+            }
+
+            if (collectionHasRepeats(row)) return true;
+        }
+
+        return false;
+    }
+
+    private static boolean squaresAreInvalid(int[][] grid) {
+        if(rowOfSquaresIsInvalid(Rows.TOP,grid)) return true;
+
+        if(rowOfSquaresIsInvalid(Rows.MIDDLE,grid)) return true;
+
+        if(rowOfSquaresIsInvalid(Rows.BOTTOM,grid)) return true;
+
+        return false;
+    }
+
+    private static boolean rowOfSquaresIsInvalid(Rows value, int[][] grid) {
+        switch (value){
+            case TOP :
+                if (squareISInvalid(0, 0, grid)) return true;
+                if (squareISInvalid(3, 0, grid)) return true;
+                if (squareISInvalid(6, 0, grid)) return true;
+                return false;
+            case MIDDLE:
+                if (squareISInvalid(0, 3, grid)) return true;
+                if (squareISInvalid(3, 3, grid)) return true;
+                if (squareISInvalid(6, 3, grid)) return true;
+                return false;
+            case BOTTOM:
+                if (squareISInvalid(0, 6, grid)) return true;
+                if (squareISInvalid(3, 6, grid)) return true;
+                if (squareISInvalid(6, 6, grid)) return true;
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    private static boolean squareISInvalid(int xIndex, int yIndex, int[][] grid) {
+        int yIndexEnd = yIndex + 3;
+        int xIndexEnd = xIndex + 3;
+
+        List<Integer> square = new ArrayList<>();
+
+        while (yIndex < yIndexEnd){
+            while(xIndex < xIndexEnd){
+                square.add(
+                        grid[xIndex][yIndex]
+                );
+
+                xIndex++;
+            }
+
+            xIndex-=3;
+            yIndex++;
+        }
+
+        if (collectionHasRepeats(square)) return true;
+        return false;
+    }
+
+    protected static boolean collectionHasRepeats(List<Integer> collections) {
+        for (int index = 1; index<=GRID_BOUNDRY;index++)
+        {
+            if(Collections.frequency(collections, index) > 1) return true;
+        }
+
+        return false;
+    }
+
+    protected static boolean tilesAreNotFilled(int[][] grid) {
         for(int xIndex = 0; xIndex < GRID_BOUNDRY; xIndex++)
         {
             for(int yIndex = 0; yIndex < GRID_BOUNDRY; yIndex++){

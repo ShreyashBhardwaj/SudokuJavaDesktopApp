@@ -10,7 +10,7 @@ import com.example.sudokudesktopapp.problemdomain.SudokuGame;
 import static com.example.sudokudesktopapp.problemdomain.SudokuGame.GRID_BOUNDRY;
 
 public class GameGenerator {
-    public static int[][] getNewGrid(){
+    public static int[][] getNewGameGrid(){
         return unsolvedGame(getSolvedGame()); 
     }
 

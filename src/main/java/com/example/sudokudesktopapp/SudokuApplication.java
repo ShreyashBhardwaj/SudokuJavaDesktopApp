@@ -1,6 +1,8 @@
 package com.example.sudokudesktopapp;
 
 import com.example.sudokudesktopapp.userinterface.IUserInterfaceContract;
+import com.example.sudokudesktopapp.userinterface.UserInterfaceImpl;
+import com.example.sudokudesktopapp.buildlogic.SudokuBuildLogic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

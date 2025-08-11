@@ -1,6 +1,7 @@
 package com.example.sudokudesktopapp.buildlogic;
 
 import com.example.sudokudesktopapp.computationlogic.GameLogic;
+import com.example.sudokudesktopapp.persistence.LocalStorageImpl;
 import com.example.sudokudesktopapp.problemdomain.IStorage;
 import com.example.sudokudesktopapp.problemdomain.SudokuGame;
 import com.example.sudokudesktopapp.userinterface.IUserInterfaceContract;

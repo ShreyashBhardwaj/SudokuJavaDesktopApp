@@ -211,7 +211,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,EventHandl
                         tile.setDisable(false);
                     }
                     else {
-                        tile.setStyle("-fx-opacity: 0.8;");
+                        tile.setStyle("-fx-background-color: yellow;-fx-opacity: 0.5;");
                         tile.setDisable(true);
                     }
                 }
